@@ -47,13 +47,13 @@ class RB3D(nn.Module):
     def __init__(self, num_classes=10, keepfc=True):
         super(RB3D, self).__init__()
         # dimensions of the 3D image. Channels, Depth, Height, Width
-        C = 1
-        D = 32
-        H = 32
-        W = 32
+        self.C = 1
+        self.D = 32
+        self.H = 32
+        self.W = 32
         self.keepfc = keepfc
 
-        self.conv1 = nn.Conv3d(C, 32, kernel_size=3, stride=1, padding=1)
+        self.conv1 = nn.Conv3d(self.C, 32, kernel_size=3, stride=1, padding=1)
         self.maxpool = nn.MaxPool3d(kernel_size=2, stride=2, padding=0)
         self.bottleneck_layers = nn.Sequential(*[Bottleneck(), Bottleneck(), Bottleneck(), Bottleneck()])
         self.avgpool = nn.AdaptiveAvgPool3d((2, 2, 2))
@@ -93,6 +93,7 @@ class RB3D(nn.Module):
             x = self.fc(x)
 
         return x
+
 
 
 if __name__ == "__main__":
